@@ -26,6 +26,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include(router.urls) ),
     path("list",views.PostViewSet.as_view({"get": "get_search"})),
-    
 
 ]
