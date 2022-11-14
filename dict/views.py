@@ -13,7 +13,6 @@ from rest_framework.permissions import IsAuthenticated
 class PostViewSet(ModelViewSet):
     queryset = Dictionary.objects.all()
     serializer_class = DictSerializer
-    permission_classes = (IsAuthenticated,)
      
 
     def get_search(self, request, *args, **kwargs):
@@ -22,6 +21,8 @@ class PostViewSet(ModelViewSet):
         serializer = DictSerializer(query_set, many=True)
         if(user_list.filter(label=request.query_params.get('search')).exists()):
             exactMatchObject = get_object_or_404(Dictionary,label=request.query_params.get('search'))
+            
+            print(exactMatchObject)
             exactMatchObject.search_count = exactMatchObject.search_count + 1
             exactMatchObject.save()
         return Response(serializer.data)  
